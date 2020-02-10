@@ -11,6 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.catalina.Session;
 
 /**
  *
@@ -66,9 +67,14 @@ public class FirstServlet extends HttpServlet {
         String e = request.getParameter("email");
         String p = request.getParameter("pass");
         System.out.println("worked dsfwdtgrgrg");
+         //RequestDispatcher rd2 = request.getRequestDispatcher("WelcomeServlet");
+         //rd2.forward(request, response);
         if(Login.validate(n, e, p)){
-            RequestDispatcher rd = request.getRequestDispatcher("WelcomeServlet");
-            rd.forward(request, response);
+            
+            response.sendRedirect("WelcomeServlet");
+            request.setAttribute("name", n);
+            System.out.println("worked dispatcher");
+            
        }else{
             out.print("Sorry username or password error");
             RequestDispatcher rd = request.getRequestDispatcher("index.html");
